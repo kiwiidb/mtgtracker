@@ -26,5 +26,5 @@ jobs:
     - name: Create a Release APK
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "build/app/outputs/flutter-apk/release/*.apk"
+        artifacts: "build/app/outputs/flutter-apk/*.apk"
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
