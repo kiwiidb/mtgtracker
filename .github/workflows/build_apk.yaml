@@ -2,8 +2,8 @@ name: Build APK
 
 on:
   push:
-    branches:
-      - main  # Set your main branch name here
+    tags:
+      - '*'
 jobs:
   build:
     runs-on: ubuntu-latest
