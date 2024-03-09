@@ -1,20 +1,27 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/player.dart';
 
 class GameController extends GetxController {
   var players = <Player>[].obs;
-  var usernameControllers = <TextEditingController>[];
+  final List<Player> allPlayers = [
+    Player('Alex',
+        'https://raw.githubusercontent.com/kiwiidb/mtgserver/main/res/images/alex.jpg'),
+    Player('Lucas',
+        'https://raw.githubusercontent.com/kiwiidb/mtgserver/main/res/images/lucas.jpg'),
+    Player('Lorin',
+        'https://raw.githubusercontent.com/kiwiidb/mtgserver/main/res/images/lorin.jpg'),
+    Player('Arthur',
+        'https://tomcat.elis.ugent.be/static/elisall/personeel/thumbnails/AV014.jpeg'),
+    Player('Dries',
+        'https://raw.githubusercontent.com/kiwiidb/mtgserver/main/res/images/dries.png'),
+    Player('Braïn',
+        'https://raw.githubusercontent.com/kiwiidb/mtgserver/main/res/images/lorin.jpg'),
+    Player('Kwinten', 'https://kwintendebacker.com/images/foto.jpg'),
+  ];
 
   @override
   void onInit() {
-    usernameControllers.addAll([
-      TextEditingController(text: "Player 1"),
-      TextEditingController(text: "Player 2"),
-      TextEditingController(text: "Player 3"),
-      TextEditingController(text: "Player 4"),
-    ]);
     super.onInit();
   }
 
@@ -30,8 +37,11 @@ class GameController extends GetxController {
   }
 
   initializePlayers() {
-    for (var i = 0; i < usernameControllers.length; i++) {
-      players.add(Player(i, 40, usernameControllers[i].text, "somedeck"));
+    for (var i = 0; i < 4; i++) {
+      var p = allPlayers[i];
+      p.index = i;
+      p.lifeTotal = 40;
+      players.add(p);
     }
   }
 }

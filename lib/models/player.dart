@@ -1,7 +1,9 @@
 class Player {
   late int index;
   late int lifeTotal;
-  late String name;
+  String name;
+  String profileImageUrl;
   late String deckName;
-  Player(this.index, this.lifeTotal, this.name, this.deckName);
+  Player(this.name, this.profileImageUrl,
+      {index = 0, lifeTotal = 40, deckName = ""});
 }
