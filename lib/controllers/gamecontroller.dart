@@ -16,7 +16,7 @@ class GameController extends GetxController {
     Player('Dries',
         'https://raw.githubusercontent.com/kiwiidb/mtgserver/main/res/images/dries.png'),
     Player('Braïn',
-        'https://raw.githubusercontent.com/kiwiidb/mtgserver/main/res/images/lorin.jpg'),
+        'https://raw.githubusercontent.com/kiwiidb/mtgserver/main/res/images/brain.jpg'),
     Player('Kwinten', 'https://kwintendebacker.com/images/foto.jpg'),
   ];
 
@@ -31,9 +31,7 @@ class GameController extends GetxController {
   }
 
   void reset() {
-    for (var p in players) {
-      p.lifeTotal = 40;
-    }
+    players.removeWhere((element) => true);
   }
 
   initializePlayers() {

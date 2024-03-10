@@ -39,6 +39,7 @@ class GameCounterScreen extends StatelessWidget {
                       child: const Icon(
                         Icons.refresh,
                         size: 50,
+                        color: Colors.yellow,
                       )),
                 ],
               ),
@@ -64,31 +65,50 @@ Widget buildPlayerButtons(int index) {
   return Container(
     margin: const EdgeInsets.all(3),
     decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.5),
+        color: Colors.black.withOpacity(0.6),
         borderRadius: BorderRadius.circular(20)),
     child: Stack(
       children: <Widget>[
-        GetX<GameController>(builder: (ctrl) {
-          var lifeTotal = ctrl.players[index].lifeTotal;
-          return Transform.rotate(
-            angle: angle,
-            child: Container(
-              alignment: Alignment.center,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(ctrl.players[index].name),
-                    Text(
-                      '$lifeTotal',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 50.0,
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Transform.rotate(
+                angle: angle,
+                child: SizedBox(
+                    height: 200,
+                    width: 200,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        ctrl.players[index].profileImageUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    )),
+              ),
+              SizedBox(
+                height: 200,
+                width: 200,
+                child: GetX<GameController>(builder: (ctrl) {
+                  var lifeTotal = ctrl.players[index].lifeTotal;
+                  return Center(
+                    child: Transform.rotate(
+                      angle: angle,
+                      child: Text(
+                        '$lifeTotal',
+                        style: const TextStyle(
+                          color: Colors.yellow,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 80.0,
+                        ),
                       ),
                     ),
-                  ]),
-            ),
-          );
-        }),
+                  );
+                }),
+              ),
+            ],
+          ),
+        ),
         Row(
           children: [
             Flexible(
