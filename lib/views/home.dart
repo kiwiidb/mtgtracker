@@ -11,33 +11,34 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GameController ctrl = Get.put(GameController());
-    const List<Widget> widgetOptions = <Widget>[
-      GameCounterScreen(),
-      RankingPage(),
-      SubmitResultPage()
-    ];
     return Scaffold(
-      body: Center(
-        child: widgetOptions.elementAt(ctrl.selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.play_arrow),
-            label: 'Game',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.format_list_numbered),
-            label: 'Ranking',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_box_rounded),
-            label: 'Submit',
-          ),
-        ],
-        currentIndex: ctrl.selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: ctrl.onItemTapped,
+      body: Obx(() => IndexedStack(
+            index: ctrl.selectedIndex.value,
+            children: const [
+              GameCounterScreen(),
+              RankingPage(),
+              SubmitResultPage(),
+            ],
+          )),
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.play_arrow),
+              label: 'Game',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.format_list_numbered),
+              label: 'Ranking',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add_box_rounded),
+              label: 'Submit',
+            ),
+          ],
+          currentIndex: ctrl.selectedIndex.value,
+          onTap: ctrl.onItemTapped,
+        ),
       ),
     );
   }

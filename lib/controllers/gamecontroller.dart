@@ -26,7 +26,7 @@ class GameController extends GetxController {
     Player('Kwinten', 'https://kwintendebacker.com/images/foto.jpg'),
   ];
 
-  int selectedIndex = 0;
+  var selectedIndex = 0.obs;
 
   @override
   void onInit() {
@@ -39,6 +39,6 @@ class GameController extends GetxController {
   }
 
   void onItemTapped(int value) {
-    selectedIndex = value;
+    selectedIndex.value = value;
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mtgtracker/controllers/gamecontroller.dart';
-import 'package:mtgtracker/views/game.dart';
 import 'package:mtgtracker/views/home.dart';
 
 class PickPlayerScreen extends StatelessWidget {
