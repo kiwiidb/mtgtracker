@@ -14,16 +14,11 @@ class GameCounterScreen extends StatelessWidget {
     for (int i = 0; i < 4; i++) {
       widgets.add(buildPlayerButtons(i));
     }
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: widgets.sublist(0, 2),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: widgets.sublist(2, 4),
-      ),
-    ]);
+    return GridView.count(
+      childAspectRatio: 0.55,
+      crossAxisCount: 2,
+      children: widgets,
+    );
   }
 }
 
@@ -73,7 +68,7 @@ Widget buildPlayerButtons(int index) {
           Stack(
             children: [
               SizedBox(
-                height: 200,
+                height: 180,
                 width: 200,
                 child: GetX<GameController>(builder: (ctrl) {
                   var lifeTotal = ctrl.players[index].lifeTotal;
@@ -92,7 +87,7 @@ Widget buildPlayerButtons(int index) {
                 }),
               ),
               SizedBox(
-                height: 200,
+                height: 180,
                 width: 200,
                 child: Row(
                   children: [
