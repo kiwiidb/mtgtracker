@@ -68,7 +68,7 @@ Widget buildPlayerButtons(int index) {
           Stack(
             children: [
               SizedBox(
-                height: 180,
+                height: 150,
                 width: 200,
                 child: GetX<GameController>(builder: (ctrl) {
                   var lifeTotal = ctrl.players[index].lifeTotal;
@@ -87,7 +87,7 @@ Widget buildPlayerButtons(int index) {
                 }),
               ),
               SizedBox(
-                height: 180,
+                height: 150,
                 width: 200,
                 child: Row(
                   children: [
