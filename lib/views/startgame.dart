@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mtgtracker/controllers/gamecontroller.dart';
 import 'package:mtgtracker/views/game.dart';
+import 'package:mtgtracker/views/home.dart';
 
-class StartGameScreen extends StatelessWidget {
-  const StartGameScreen({super.key});
+class PickPlayerScreen extends StatelessWidget {
+  const PickPlayerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +14,10 @@ class StartGameScreen extends StatelessWidget {
     for (var i = 0; i < ctrl.allPlayers.length; i++) {
       c.add(InkWell(
         onTap: () {
-          var p = ctrl.allPlayers[i];
-          p.index = ctrl.players.length;
-          p.lifeTotal = 40;
-          ctrl.players.add(p);
+          ctrl.players[ctrl.pickedPlayerIndex].name = ctrl.allPlayers[i].name;
+          ctrl.players[ctrl.pickedPlayerIndex].profileImageUrl =
+              ctrl.allPlayers[i].profileImageUrl;
+          Get.offAll(const Home());
         },
         child: Card(
           child: Padding(
@@ -42,13 +43,8 @@ class StartGameScreen extends StatelessWidget {
         ),
       ));
     }
-    c.add(ElevatedButton(
-      onPressed: () async {
-        Get.to(() => const GameCounterScreen());
-      },
-      child: const Text('Start Game'),
-    ));
     return Scaffold(
+      appBar: AppBar(),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(60.0),

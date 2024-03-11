@@ -10,43 +10,14 @@ class GameCounterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GameController ctrl = Get.put(GameController());
     var widgets = <Widget>[];
-    for (var p in ctrl.players) {
-      widgets.add(buildPlayerButtons(p.index));
+    for (int i = 0; i < 4; i++) {
+      widgets.add(buildPlayerButtons(i));
     }
-    return Scaffold(
-      body: Stack(
-        children: [
-          GridView.count(
-            childAspectRatio: (0.5),
-            crossAxisCount: 2,
-            children: widgets,
-          ),
-          Center(
-            child: SizedBox(
-              height: 106,
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Get.offAll(() => const StartGameScreen());
-                        ctrl.reset();
-                      },
-                      child: const Icon(
-                        Icons.refresh,
-                        size: 50,
-                        color: Colors.yellow,
-                      )),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+    return GridView.count(
+      childAspectRatio: (0.5),
+      crossAxisCount: 2,
+      children: widgets,
     );
   }
 }
@@ -65,29 +36,39 @@ Widget buildPlayerButtons(int index) {
   return Container(
     margin: const EdgeInsets.all(3),
     decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.6),
+        color: Colors.grey.withOpacity(0.5),
         borderRadius: BorderRadius.circular(20)),
-    child: Stack(
-      children: <Widget>[
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Transform.rotate(
-                angle: angle,
-                child: SizedBox(
-                    height: 200,
-                    width: 200,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        ctrl.players[index].profileImageUrl,
-                        fit: BoxFit.cover,
-                      ),
-                    )),
-              ),
-              SizedBox(
+    child: Center(
+      child: Column(
+        children: [
+          Transform.rotate(
+            angle: angle,
+            child: SizedBox(
                 height: 200,
+                width: 200,
+                child: TextButton(
+                  onPressed: () {
+                    ctrl.pickedPlayerIndex = index;
+                    Get.to(const PickPlayerScreen());
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.network(ctrl.players[index].profileImageUrl,
+                        fit: BoxFit.cover, errorBuilder: (BuildContext context,
+                            Object exception, StackTrace? stackTrace) {
+                      return const Icon(
+                        Icons.person,
+                        size: 75,
+                        color: Colors.black,
+                      );
+                    }),
+                  ),
+                )),
+          ),
+          Stack(
+            children: [
+              SizedBox(
+                height: 150,
                 width: 200,
                 child: GetX<GameController>(builder: (ctrl) {
                   var lifeTotal = ctrl.players[index].lifeTotal;
@@ -97,7 +78,6 @@ Widget buildPlayerButtons(int index) {
                       child: Text(
                         '$lifeTotal',
                         style: const TextStyle(
-                          color: Colors.yellow,
                           fontWeight: FontWeight.bold,
                           fontSize: 80.0,
                         ),
@@ -106,34 +86,38 @@ Widget buildPlayerButtons(int index) {
                   );
                 }),
               ),
+              SizedBox(
+                height: 150,
+                width: 200,
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: SizedBox.expand(
+                        child: TextButton(
+                          onPressed: () {
+                            ctrl.updatePlayer(index, leftDelta);
+                          },
+                          child: Container(),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: SizedBox.expand(
+                        child: TextButton(
+                          onPressed: () {
+                            ctrl.updatePlayer(index, rightDelta);
+                          },
+                          child: Container(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
-        ),
-        Row(
-          children: [
-            Flexible(
-              child: SizedBox.expand(
-                child: TextButton(
-                  onPressed: () {
-                    ctrl.updatePlayer(index, leftDelta);
-                  },
-                  child: Container(),
-                ),
-              ),
-            ),
-            Flexible(
-              child: SizedBox.expand(
-                child: TextButton(
-                  onPressed: () {
-                    ctrl.updatePlayer(index, rightDelta);
-                  },
-                  child: Container(),
-                ),
-              ),
-            ),
-          ],
-        )
-      ],
+        ],
+      ),
     ),
   );
 }

@@ -19,7 +19,7 @@ class AddFriendsScreen extends StatelessWidget {
             // Add a button to navigate to the StartGameScreen
             ElevatedButton(
               onPressed: () {
-                Get.to(() => const StartGameScreen());
+                Get.to(() => const PickPlayerScreen());
               },
               child: const Text('Start Game'),
             ),
