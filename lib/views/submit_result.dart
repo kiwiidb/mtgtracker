@@ -7,7 +7,7 @@ class SubmitResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Placeholder(),
+      body: const Placeholder(),
     );
   }
 }

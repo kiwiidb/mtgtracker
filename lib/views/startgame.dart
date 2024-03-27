@@ -20,10 +20,10 @@ class PickPlayerScreen extends StatelessWidget {
         },
         child: Card(
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
-                Container(
+                SizedBox(
                   width: 75,
                   height: 75,
                   child: Image.network(
@@ -31,10 +31,10 @@ class PickPlayerScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(width: 16.0),
+                const SizedBox(width: 16.0),
                 Text(
                   ctrl.allPlayers[i].name,
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 ),
               ],
             ),
@@ -47,9 +47,47 @@ class PickPlayerScreen extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(60.0),
-          child: ListView(
-            children: c,
-          ),
+          child: GetX<GameController>(builder: (ctrl) {
+            return ListView.builder(
+              itemCount: ctrl.allPlayers.length,
+              itemBuilder: (BuildContext context, int i) {
+                if (i == 0) {
+                  return const Text('Who\'s playing?');
+                }
+                return InkWell(
+                  onTap: () {
+                    ctrl.players[ctrl.pickedPlayerIndex].name =
+                        ctrl.allPlayers[i].name;
+                    ctrl.players[ctrl.pickedPlayerIndex].profileImageUrl =
+                        ctrl.allPlayers[i].profileImageUrl;
+                    Get.offAll(const Home());
+                  },
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 75,
+                            height: 75,
+                            child: Image.network(
+                              ctrl.allPlayers[i].profileImageUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          const SizedBox(width: 16.0),
+                          Text(
+                            ctrl.allPlayers[i].name,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          }),
         ),
       ),
     );
