@@ -18,7 +18,8 @@ class GameController extends GetxController {
   @override
   void onInit() async {
     r.value = await getRanking();
-    allPlayers.value = await getAllPlayers();
+    var ap = await getAllPlayers();
+    allPlayers.value = ap;
     super.onInit();
   }
 
@@ -49,8 +50,9 @@ class GameController extends GetxController {
 
     if (response.statusCode == 200) {
       // If the server returns a 200 OK response, parse the JSON
-      final jsonResponse = jsonDecode(response.body);
-      return AllPlayersResponse.fromJson(jsonResponse).players;
+      Iterable b = jsonDecode(response.body);
+      List<Player> res = List<Player>.from(b.map((e) => Player.fromJson(e)));
+      return res;
     } else {
       // If the server did not return a 200 OK response, throw an exception
       throw Exception('Failed to load data');

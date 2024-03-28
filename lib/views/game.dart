@@ -48,7 +48,8 @@ Widget buildPlayerButtons(int index) {
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.network(ctrl.players[index].profileImageUrl,
+                  child: Image.network(
+                      ctrl.players[index].profileImageUrl ?? "",
                       fit: BoxFit.cover, errorBuilder: (BuildContext context,
                           Object exception, StackTrace? stackTrace) {
                     return const Icon(
