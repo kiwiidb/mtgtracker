@@ -1,9 +1,11 @@
+import 'package:mtgtracker/models/deck.dart';
+
 class Player {
   int? id;
   int lifeTotal = 40;
   String? name;
   String? profileImageUrl;
-  List<String>? decks;
+  List<Deck>? decks;
 
   Player({this.id, this.name, this.profileImageUrl, this.decks});
 

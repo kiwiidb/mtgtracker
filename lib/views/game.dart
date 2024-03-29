@@ -44,7 +44,7 @@ Widget buildPlayerButtons(int index) {
               child: TextButton(
                 onPressed: () {
                   ctrl.pickedPlayerIndex = index;
-                  Get.to(const PickPlayerScreen());
+                  Get.to(() => const PickPlayerScreen());
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
