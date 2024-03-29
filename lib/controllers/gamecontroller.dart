@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mtgtracker/models/ranking.dart';
 import 'package:http/http.dart' as http;
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'dart:convert';
 
 import '../models/player.dart';
@@ -19,8 +20,15 @@ class GameController extends GetxController {
   TextEditingController gameDescriptionController =
       TextEditingController(text: "");
 
+  List<Player> inGameRankedPlayers() {
+    List<Player> copy = List.from(players);
+    copy.sort((a, b) => b.lifeTotal.compareTo(a.lifeTotal));
+    return copy;
+  }
+
   @override
   void onInit() async {
+    WakelockPlus.enable();
     r.value = await getRanking();
     var ap = await getAllPlayers();
     allPlayers.value = ap;

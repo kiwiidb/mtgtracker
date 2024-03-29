@@ -14,6 +14,7 @@ class SubmitResultPage extends StatelessWidget {
       const Text("3rd place"),
       const Text("4th place")
     ];
+    var rankedPlayersInGame = ctrl.inGameRankedPlayers();
     return Scaffold(
         appBar: AppBar(),
         body: Padding(
@@ -37,7 +38,9 @@ class SubmitResultPage extends StatelessWidget {
                                   width: 75,
                                   height: 75,
                                   child: Image.network(
-                                    ctrl.players[index].profileImageUrl ?? "",
+                                    rankedPlayersInGame[index]
+                                            .profileImageUrl ??
+                                        "",
                                     fit: BoxFit.cover,
                                     errorBuilder: (BuildContext context,
                                         Object exception,
@@ -55,7 +58,7 @@ class SubmitResultPage extends StatelessWidget {
                                   children: [
                                     labels[index],
                                     Text(
-                                      ctrl.players[index].name ?? "",
+                                      rankedPlayersInGame[index].name ?? "",
                                       style: const TextStyle(fontSize: 20),
                                     ),
                                   ],
