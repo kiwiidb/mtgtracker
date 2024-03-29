@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mtgtracker/models/ranking.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,9 @@ class GameController extends GetxController {
   var r = <Ranking>[].obs;
 
   var selectedIndex = 0.obs;
+
+  TextEditingController gameDescriptionController =
+      TextEditingController(text: "");
 
   @override
   void onInit() async {
@@ -58,4 +62,6 @@ class GameController extends GetxController {
       throw Exception('Failed to load data');
     }
   }
+
+  submitResult() {}
 }
