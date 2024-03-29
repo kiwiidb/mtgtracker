@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mtgtracker/controllers/gamecontroller.dart';
 import 'package:mtgtracker/controllers/search_deck_controller.dart';
+import 'package:mtgtracker/models/deck.dart';
 import 'package:mtgtracker/views/home.dart';
 
 class PickDeckScreen extends StatelessWidget {
@@ -9,6 +11,7 @@ class PickDeckScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(SearchDeckController());
+    GameController gc = Get.put(GameController());
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -20,7 +23,7 @@ class PickDeckScreen extends StatelessWidget {
                 TextField(
                   controller: ctrl.searchTextController,
                   decoration: const InputDecoration(
-                    labelText: 'commander',
+                    labelText: 'Commander',
                   ),
                 ),
                 const SizedBox(
@@ -41,6 +44,9 @@ class PickDeckScreen extends StatelessWidget {
                     itemBuilder: (BuildContext context, int i) {
                       return InkWell(
                         onTap: () {
+                          gc.players[gc.pickedPlayerIndex].currentDeck = Deck(
+                              commander: ctrl.searchResult[i].commander,
+                              imageUrl: ctrl.searchResult[i].imageUrl);
                           Get.offAll(() => const Home());
                         },
                         child: Card(

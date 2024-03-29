@@ -5,6 +5,7 @@ class Player {
   int lifeTotal = 40;
   String? name;
   String? profileImageUrl;
+  Deck? currentDeck;
   List<Deck>? decks;
 
   Player({this.id, this.name, this.profileImageUrl, this.decks});

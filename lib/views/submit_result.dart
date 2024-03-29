@@ -55,11 +55,22 @@ class SubmitResultPage extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 16.0),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     labels[index],
                                     Text(
                                       rankedPlayersInGame[index].name ?? "",
                                       style: const TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      width: 180,
+                                      child: Text(
+                                        rankedPlayersInGame[index]
+                                                .currentDeck
+                                                ?.commander ??
+                                            "",
+                                        style: const TextStyle(fontSize: 15),
+                                      ),
                                     ),
                                   ],
                                 ),

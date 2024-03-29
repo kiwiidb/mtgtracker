@@ -11,16 +11,7 @@ class SearchDeckController extends GetxController {
 
   TextEditingController searchTextController = TextEditingController(text: "");
 
-  List<Deck> searchResult = <Deck>[
-    Deck(
-        commander: "Queen Marchesa",
-        imageUrl:
-            "https://cards.scryfall.io/art_crop/front/5/6/567697db-8d47-404f-b0da-b00409431f28.jpg?1689999198"),
-    Deck(
-        commander: "Queen Marchesa",
-        imageUrl:
-            "https://cards.scryfall.io/art_crop/front/5/6/567697db-8d47-404f-b0da-b00409431f28.jpg?1689999198"),
-  ].obs;
+  List<Deck> searchResult = <Deck>[].obs;
 
   void clearResult() {
     searchResult.removeWhere((element) => true);
@@ -30,7 +21,7 @@ class SearchDeckController extends GetxController {
     clearResult();
     var res = await searchScryFall(searchTextController.text);
     for (var r in res.data!) {
-      searchResult.add(Deck(commander: r.name, imageUrl: r.imageUris!.artCrop));
+      searchResult.add(Deck(commander: r.name, imageUrl: r.imageUris?.artCrop));
     }
   }
 
