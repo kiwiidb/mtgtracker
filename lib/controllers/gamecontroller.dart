@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mtgtracker/models/ranking.dart';
 import 'package:http/http.dart' as http;
+import 'package:mtgtracker/models/submit_game_request.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'dart:convert';
 
@@ -24,6 +25,10 @@ class GameController extends GetxController {
     List<Player> copy = List.from(players);
     copy.sort((a, b) => b.lifeTotal.compareTo(a.lifeTotal));
     return copy;
+  }
+
+  void resetGame() {
+    players.value = <Player>[Player(), Player(), Player(), Player()];
   }
 
   @override
@@ -71,5 +76,33 @@ class GameController extends GetxController {
     }
   }
 
-  submitResult() {}
+  submitAndToRanking() async {
+    await submitResult();
+    r.value = await getRanking();
+    selectedIndex.value = 1;
+    resetGame();
+  }
+
+  submitResult() async {
+    var req = SubmitGameRequest(
+      winner: inGameRankedPlayers()[0].name,
+      player2: inGameRankedPlayers()[1].name,
+      player3: inGameRankedPlayers()[2].name,
+      player4: inGameRankedPlayers()[3].name,
+      description: gameDescriptionController.text,
+      winningDeckCommander: inGameRankedPlayers()[0].currentDeck?.commander,
+      deck2Commander: inGameRankedPlayers()[1].currentDeck?.commander,
+      deck3Commander: inGameRankedPlayers()[2].currentDeck?.commander,
+      deck4Commander: inGameRankedPlayers()[3].currentDeck?.commander,
+    );
+    var body = req.toJson();
+    var resp = await http.post(
+      Uri.parse('$apiHost/games'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(body),
+    );
+    if (resp.statusCode != 201) {
+      throw Exception('Failed to submit result');
+    }
+  }
 }
