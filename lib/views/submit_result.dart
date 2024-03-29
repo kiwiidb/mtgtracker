@@ -9,10 +9,10 @@ class SubmitResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     GameController ctrl = Get.put(GameController());
     var labels = [
-      Text("Winner"),
-      Text("2nd place"),
-      Text("3rd place"),
-      Text("4th place")
+      const Text("Winner"),
+      const Text("2nd place"),
+      const Text("3rd place"),
+      const Text("4th place")
     ];
     return Scaffold(
         appBar: AppBar(),

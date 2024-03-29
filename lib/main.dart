@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:mtgtracker/views/home.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 void main() {
+  WakelockPlus.enable();
   runApp(const MyApp());
 }
 
