@@ -3,6 +3,7 @@ import 'package:mtgtracker/models/deck.dart';
 class Player {
   int? id;
   int lifeTotal = 40;
+  int poisonCounters = 0;
   String? name;
   String? profileImageUrl;
   Deck? currentDeck;

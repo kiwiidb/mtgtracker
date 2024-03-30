@@ -41,8 +41,13 @@ class GameController extends GetxController {
     super.onInit();
   }
 
-  void updatePlayer(int i, int lifeDelta) {
-    players[i].lifeTotal += lifeDelta;
+  void updatePlayer(int i, int delta, bool isPoison) {
+    if (isPoison) {
+      players[i].poisonCounters += delta;
+      players.refresh();
+      return;
+    }
+    players[i].lifeTotal += delta;
     players.refresh();
   }
 
