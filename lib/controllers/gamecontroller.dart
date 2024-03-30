@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:mtgtracker/models/submit_game_request.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'dart:math';
+import 'dart:async';
 import 'dart:convert';
 
 import '../models/player.dart';
@@ -14,6 +15,7 @@ class GameController extends GetxController {
   var apiHost = "https://mtgserver.kwintendebacker.com";
   var players = <Player>[Player(), Player(), Player(), Player()].obs;
   var allPlayers = <Player>[].obs;
+  var seconds = 0.obs;
   final sw = Stopwatch();
 
   var r = <Ranking>[].obs;
@@ -125,6 +127,10 @@ class GameController extends GetxController {
     }
     Get.snackbar("$name starts the game!", msg,
         snackPosition: SnackPosition.TOP, duration: const Duration(seconds: 5));
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      seconds.value++;
+      print(sw.elapsed.inMinutes);
+    });
     sw.start();
   }
 }

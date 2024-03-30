@@ -14,10 +14,34 @@ class GameCounterScreen extends StatelessWidget {
     for (int i = 0; i < 4; i++) {
       widgets.add(buildPlayerButtons(i));
     }
-    return GridView.count(
-      childAspectRatio: 0.50,
-      crossAxisCount: 2,
-      children: widgets,
+    return Stack(
+      children: [
+        GridView.count(
+          childAspectRatio: 0.50,
+          crossAxisCount: 2,
+          children: widgets,
+        ),
+        Center(
+          child: GetX<GameController>(builder: (ctrl) {
+            var prefix = "";
+            var secPrefix = "";
+
+            int mins = ctrl.seconds ~/ 60;
+            if (mins < 10) {
+              prefix = "0";
+            }
+
+            int secs = ctrl.seconds.value % 60;
+            if (secs < 10) {
+              secPrefix = "0";
+            }
+            return Text(
+              "$prefix$mins:$secPrefix$secs",
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            );
+          }),
+        ),
+      ],
     );
   }
 }
