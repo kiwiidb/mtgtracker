@@ -14,6 +14,7 @@ class GameController extends GetxController {
   var apiHost = "https://mtgserver.kwintendebacker.com";
   var players = <Player>[Player(), Player(), Player(), Player()].obs;
   var allPlayers = <Player>[].obs;
+  final sw = Stopwatch();
 
   var r = <Ranking>[].obs;
 
@@ -90,12 +91,15 @@ class GameController extends GetxController {
   }
 
   submitResult() async {
+    sw.stop();
+    var elapsed = sw.elapsed.inMinutes;
     var req = SubmitGameRequest(
       winner: inGameRankedPlayers()[0].name,
       player2: inGameRankedPlayers()[1].name,
       player3: inGameRankedPlayers()[2].name,
       player4: inGameRankedPlayers()[3].name,
       description: gameDescriptionController.text,
+      durationMinutes: elapsed,
       winningDeckCommander: inGameRankedPlayers()[0].currentDeck?.commander,
       deck2Commander: inGameRankedPlayers()[1].currentDeck?.commander,
       deck3Commander: inGameRankedPlayers()[2].currentDeck?.commander,
@@ -112,7 +116,7 @@ class GameController extends GetxController {
     }
   }
 
-  void notifyStartinPlayer() {
+  void startGame() {
     var r = Random().nextInt(4);
     var name = players[r].name;
     var msg = "";
@@ -121,5 +125,6 @@ class GameController extends GetxController {
     }
     Get.snackbar("$name starts the game!", msg,
         snackPosition: SnackPosition.TOP, duration: const Duration(seconds: 5));
+    sw.start();
   }
 }

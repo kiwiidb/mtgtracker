@@ -3,6 +3,7 @@ class SubmitGameRequest {
   String? player2;
   String? player3;
   String? player4;
+  int? durationMinutes;
   String? winningDeckCommander;
   String? deck2Commander;
   String? deck3Commander;
@@ -19,6 +20,7 @@ class SubmitGameRequest {
     this.deck3Commander,
     this.deck4Commander,
     this.description,
+    this.durationMinutes,
   });
 
   SubmitGameRequest.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,7 @@ class SubmitGameRequest {
     deck3Commander = json['deck3Commander'];
     deck4Commander = json['deck4Commander'];
     description = json['description'];
+    durationMinutes = json['durationMinutes'];
   }
 
   Map<String, dynamic> toJson() {
@@ -44,6 +47,7 @@ class SubmitGameRequest {
     data['deck3Commander'] = deck3Commander;
     data['deck4Commander'] = deck4Commander;
     data['description'] = description;
+    data['durationMinutes'] = durationMinutes;
     return data;
   }
 }
