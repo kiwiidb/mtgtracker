@@ -10,38 +10,33 @@ class GameCounterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var counter = Center(
+      child: GetX<GameController>(builder: (ctrl) {
+        var prefix = "";
+        var secPrefix = "";
+
+        int mins = ctrl.seconds ~/ 60;
+        if (mins < 10) {
+          prefix = "0";
+        }
+
+        int secs = ctrl.seconds.value % 60;
+        if (secs < 10) {
+          secPrefix = "0";
+        }
+        return Text(
+          "$prefix$mins:$secPrefix$secs",
+          style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        );
+      }),
+    );
     var widgets = <Widget>[];
-    for (int i = 0; i < 4; i++) {
-      widgets.add(buildPlayerButtons(i));
-    }
-    return Stack(
-      children: [
-        GridView.count(
-          childAspectRatio: 0.50,
-          crossAxisCount: 2,
-          children: widgets,
-        ),
-        Center(
-          child: GetX<GameController>(builder: (ctrl) {
-            var prefix = "";
-            var secPrefix = "";
-
-            int mins = ctrl.seconds ~/ 60;
-            if (mins < 10) {
-              prefix = "0";
-            }
-
-            int secs = ctrl.seconds.value % 60;
-            if (secs < 10) {
-              secPrefix = "0";
-            }
-            return Text(
-              "$prefix$mins:$secPrefix$secs",
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            );
-          }),
-        ),
-      ],
+    widgets.add(Row(children: [buildPlayerButtons(0), buildPlayerButtons(1)]));
+    widgets.add(counter);
+    widgets.add(Row(children: [buildPlayerButtons(2), buildPlayerButtons(3)]));
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: widgets,
     );
   }
 }
@@ -73,34 +68,38 @@ Widget buildPlayerButtons(int index) {
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Stack(children: [
-                      Image.network(ctrl.players[index].profileImageUrl ?? "",
-                          fit: BoxFit.cover, errorBuilder:
-                              (BuildContext context, Object exception,
-                                  StackTrace? stackTrace) {
-                        return const Icon(
-                          Icons.person,
-                          size: 75,
-                          color: Colors.black,
-                        );
-                      }),
-                      SizedBox(
-                        height: 50,
-                        child: Image.network(
-                            ctrl.players[index].currentDeck?.imageUrl ?? "",
-                            fit: BoxFit.cover, errorBuilder:
-                                (BuildContext context, Object exception,
-                                    StackTrace? stackTrace) {
-                          return const SizedBox(
+                    child: Stack(
+                        alignment: AlignmentDirectional.bottomEnd,
+                        children: [
+                          Image.network(
+                              ctrl.players[index].profileImageUrl ?? "",
+                              fit: BoxFit.cover, errorBuilder:
+                                  (BuildContext context, Object exception,
+                                      StackTrace? stackTrace) {
+                            return const Icon(
+                              Icons.person,
+                              size: 75,
+                              color: Colors.black,
+                            );
+                          }),
+                          SizedBox(
                             height: 50,
-                          );
-                        }),
-                      )
-                    ]),
+                            child: Image.network(
+                                ctrl.players[index].currentDeck?.imageUrl ?? "",
+                                fit: BoxFit.cover, errorBuilder:
+                                    (BuildContext context, Object exception,
+                                        StackTrace? stackTrace) {
+                              return const SizedBox(
+                                height: 50,
+                              );
+                            }),
+                          )
+                        ]),
                   ),
                 )),
           ),
           Stack(
+            alignment: AlignmentDirectional.center,
             children: [
               GetX<GameController>(builder: (ctrl) {
                 var p = ctrl.players[index];
@@ -111,6 +110,7 @@ Widget buildPlayerButtons(int index) {
                 var c = [
                   Text(
                     t,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 80.0,
@@ -120,22 +120,23 @@ Widget buildPlayerButtons(int index) {
                 if (poison > 0) {
                   c.add(Text(
                     '$poison',
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                         fontSize: 30, fontWeight: FontWeight.bold),
                   ));
                 }
-                return Center(
-                  child: Transform.rotate(
-                    angle: angle,
-                    child: Column(
-                      children: c,
-                    ),
+                return Transform.rotate(
+                  angle: angle,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: c,
                   ),
                 );
               }),
               SizedBox(
                 height: 150,
-                width: 200,
+                width: 215,
                 child: Row(
                   children: [
                     Flexible(
