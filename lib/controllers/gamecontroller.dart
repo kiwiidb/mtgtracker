@@ -12,6 +12,7 @@ import '../models/player.dart';
 
 class GameController extends GetxController {
   int pickedPlayerIndex = 0;
+  int nrPickedPlayers = 0;
   var apiHost = "https://mtgserver.kwintendebacker.com";
   var players = <Player>[Player(), Player(), Player(), Player()].obs;
   var allPlayers = <Player>[].obs;
@@ -129,7 +130,6 @@ class GameController extends GetxController {
         snackPosition: SnackPosition.TOP, duration: const Duration(seconds: 5));
     Timer.periodic(const Duration(seconds: 1), (timer) {
       seconds.value++;
-      print(sw.elapsed.inMinutes);
     });
     sw.start();
   }

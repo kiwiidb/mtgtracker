@@ -47,7 +47,8 @@ class PickDeckScreen extends StatelessWidget {
                           gc.players[gc.pickedPlayerIndex].currentDeck = Deck(
                               commander: ctrl.searchResult[i].commander,
                               imageUrl: ctrl.searchResult[i].imageUrl);
-                          if (gc.pickedPlayerIndex == 3) {
+                          gc.nrPickedPlayers++;
+                          if (gc.nrPickedPlayers == 3) {
                             gc.startGame();
                           }
                           Get.offAll(() => const Home());
