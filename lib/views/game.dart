@@ -48,16 +48,30 @@ Widget buildPlayerButtons(int index) {
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
-                        ctrl.players[index].profileImageUrl ?? "",
-                        fit: BoxFit.cover, errorBuilder: (BuildContext context,
-                            Object exception, StackTrace? stackTrace) {
-                      return const Icon(
-                        Icons.person,
-                        size: 75,
-                        color: Colors.black,
-                      );
-                    }),
+                    child: Stack(children: [
+                      Image.network(ctrl.players[index].profileImageUrl ?? "",
+                          fit: BoxFit.cover, errorBuilder:
+                              (BuildContext context, Object exception,
+                                  StackTrace? stackTrace) {
+                        return const Icon(
+                          Icons.person,
+                          size: 75,
+                          color: Colors.black,
+                        );
+                      }),
+                      SizedBox(
+                        height: 50,
+                        child: Image.network(
+                            ctrl.players[index].currentDeck?.imageUrl ?? "",
+                            fit: BoxFit.cover, errorBuilder:
+                                (BuildContext context, Object exception,
+                                    StackTrace? stackTrace) {
+                          return const SizedBox(
+                            height: 50,
+                          );
+                        }),
+                      )
+                    ]),
                   ),
                 )),
           ),

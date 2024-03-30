@@ -4,6 +4,7 @@ import 'package:mtgtracker/models/ranking.dart';
 import 'package:http/http.dart' as http;
 import 'package:mtgtracker/models/submit_game_request.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'dart:math';
 import 'dart:convert';
 
 import '../models/player.dart';
@@ -104,5 +105,16 @@ class GameController extends GetxController {
     if (resp.statusCode != 201) {
       throw Exception('Failed to submit result');
     }
+  }
+
+  void notifyStartinPlayer() {
+    var r = Random().nextInt(4);
+    var name = players[r].name;
+    var msg = "";
+    if (name == "Lucas") {
+      msg = "Of course he does..";
+    }
+    Get.snackbar("$name starts the game!", msg,
+        snackPosition: SnackPosition.TOP, duration: const Duration(seconds: 5));
   }
 }
