@@ -31,17 +31,25 @@ class GameCounterScreen extends StatelessWidget {
       }),
     );
     var widgets = <Widget>[];
-    widgets.add(Row(children: [buildPlayerButtons(0), buildPlayerButtons(1)]));
+    double width = MediaQuery.of(context).size.width;
+    widgets.add(Row(children: [
+      buildPlayerButtons(0, width),
+      buildPlayerButtons(1, width)
+    ]));
     widgets.add(counter);
-    widgets.add(Row(children: [buildPlayerButtons(2), buildPlayerButtons(3)]));
+    widgets.add(Row(children: [
+      buildPlayerButtons(2, width),
+      buildPlayerButtons(3, width)
+    ]));
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: widgets,
     );
   }
 }
 
-Widget buildPlayerButtons(int index) {
+Widget buildPlayerButtons(int index, double width) {
   //todo find some clever formula or smth for these things
   var angle = math.pi / 2;
   var leftDelta = -1;
@@ -59,7 +67,7 @@ Widget buildPlayerButtons(int index) {
             angle: angle,
             child: SizedBox(
                 height: 200,
-                width: 200,
+                width: width / 2,
                 child: TextButton(
                   onLongPress: () {},
                   onPressed: () {
@@ -136,7 +144,7 @@ Widget buildPlayerButtons(int index) {
               }),
               SizedBox(
                 height: 150,
-                width: 215,
+                width: width / 2,
                 child: Row(
                   children: [
                     Flexible(
