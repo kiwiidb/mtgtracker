@@ -32,14 +32,15 @@ class GameCounterScreen extends StatelessWidget {
     );
     var widgets = <Widget>[];
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     widgets.add(Row(children: [
-      buildPlayerButtons(0, width),
-      buildPlayerButtons(1, width)
+      buildPlayerButtons(0, width, height),
+      buildPlayerButtons(1, width, height)
     ]));
     widgets.add(counter);
     widgets.add(Row(children: [
-      buildPlayerButtons(2, width),
-      buildPlayerButtons(3, width)
+      buildPlayerButtons(2, width, height),
+      buildPlayerButtons(3, width, height)
     ]));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,8 +50,7 @@ class GameCounterScreen extends StatelessWidget {
   }
 }
 
-Widget buildPlayerButtons(int index, double width) {
-  //todo find some clever formula or smth for these things
+Widget buildPlayerButtons(int index, double w, double h) {
   var angle = math.pi / 2;
   var leftDelta = -1;
   var rightDelta = 1;
@@ -66,8 +66,8 @@ Widget buildPlayerButtons(int index, double width) {
           Transform.rotate(
             angle: angle,
             child: SizedBox(
-                height: 200,
-                width: width / 2,
+                height: h / 5,
+                width: w / 2,
                 child: TextButton(
                   onLongPress: () {},
                   onPressed: () {
@@ -143,8 +143,8 @@ Widget buildPlayerButtons(int index, double width) {
                 );
               }),
               SizedBox(
-                height: 150,
-                width: width / 2,
+                height: h / 5,
+                width: w / 2,
                 child: Row(
                   children: [
                     Flexible(
