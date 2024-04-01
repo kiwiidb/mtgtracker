@@ -19,6 +19,7 @@ class SubmitResultPage extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: GetX<GameController>(builder: (ctrl) {
             var rankedPlayersInGame = ctrl.inGameRankedPlayers();
+            var fmtTime = ctrl.getFormattedTime(ctrl.seconds.value);
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -83,6 +84,10 @@ class SubmitResultPage extends StatelessWidget {
                       );
                     },
                   ),
+                ),
+                Text(
+                  "game duration:  $fmtTime",
+                  textAlign: TextAlign.left,
                 ),
                 TextField(
                   controller: ctrl.gameDescriptionController,

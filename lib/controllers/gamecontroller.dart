@@ -133,4 +133,20 @@ class GameController extends GetxController {
     });
     sw.start();
   }
+
+  String getFormattedTime(int secs) {
+    var prefix = "";
+    var secPrefix = "";
+
+    int mins = secs ~/ 60;
+    if (mins < 10) {
+      prefix = "0";
+    }
+
+    int seconds = secs % 60;
+    if (seconds < 10) {
+      secPrefix = "0";
+    }
+    return "$prefix$mins:$secPrefix$seconds";
+  }
 }

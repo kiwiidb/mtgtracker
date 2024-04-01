@@ -12,20 +12,9 @@ class GameCounterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var counter = Center(
       child: GetX<GameController>(builder: (ctrl) {
-        var prefix = "";
-        var secPrefix = "";
-
-        int mins = ctrl.seconds ~/ 60;
-        if (mins < 10) {
-          prefix = "0";
-        }
-
-        int secs = ctrl.seconds.value % 60;
-        if (secs < 10) {
-          secPrefix = "0";
-        }
+        var fmtTime = ctrl.getFormattedTime(ctrl.seconds.value);
         return Text(
-          "$prefix$mins:$secPrefix$secs",
+          "$fmtTime",
           style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
         );
       }),
